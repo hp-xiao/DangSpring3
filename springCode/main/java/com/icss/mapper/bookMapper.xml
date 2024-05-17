@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.icss.mapper.IBookMapper">
+
+	<select id="getAllMainBook" resultType="MBook">
+	    select b.isbn,b.bname,b.price,b.pic,m.dno,m.rtime from tbook b,TBookMain m where b.isbn=m.isbn order by m.dno desc
+	</select>
+	
+	<select id="getBookInfo" resultType="Book">
+		select isbn,cid,bname,author,press,pdate,price,pic from tbook where isbn=#{isbn}
+	</select>
+	
+	<select id="getShopBooks" resultType="Book">
+		select isbn,cid,bname,author,press,pdate,price,pic from tbook where isbn in ( ${isbns} )
+	</select>
+	
+	<select id="getAllCategory" resultType="Category">
+		select * from tcategory
+	</select>
+	
+	<insert id="addBook" parameterType="Book">
+		insert into tbook values(#{isbn},#{cid},#{bname},#{author},#{press},#{pdate},#{price},#{pic})
+	</insert>
+	
+	<select id="validISBN" resultType="Book">
+		select isbn from tbook where isbn=#{isbn}
+	</select>
+	
+</mapper>
